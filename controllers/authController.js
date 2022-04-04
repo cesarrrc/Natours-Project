@@ -14,7 +14,7 @@ const signToken = id => {
 
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
-  console.log('cookie')
+  // console.log('cookie')
   res.cookie('jwt', token, {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 100
@@ -44,7 +44,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     role: req.body.role
   });
   const url = `${req.protocol}://${req.get('host')}/me`;
-  console.log(url);
+  // console.log(url);
   await new Email(newUser, url).sendWelcome();
 
   createSendToken(newUser, 201, req, res);
@@ -79,7 +79,7 @@ exports.logout = (req, res) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check if it's there
-  console.log('protect');
+  // console.log('protect');
   let token;
   if (
     req.headers.authorization &&
@@ -122,7 +122,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 // Only for rendered pages, no errors!
 exports.isLoggedIn = async (req, res, next) => {
   try {
-    console.log('loggedin');
+    // console.log('loggedin');
     // 1) Getting token and check if it's there
     let token;
     if (req.cookies.jwt) {
@@ -242,7 +242,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 exports.updatePassword = catchAsync(async (req, res, next) => {
   // 1) Get user from collection
   const user = await User.findById(req.user.id).select('+password');
-  console.log(user);
+  // console.log(user);
   // 2) Check if POSTed password is correct
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
     return next(new AppError('Your current Password is wrong.', 401));

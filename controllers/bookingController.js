@@ -8,7 +8,7 @@ const factory = require('../controllers/handlerFactory');
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) GET the currently booked tour
   const tour = await Tour.findById(req.params.id);
-  console.log(tour.summary);
+  // console.log(tour.summary);
   // 2) Create checkout session
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
@@ -39,7 +39,7 @@ exports.createBookingCheckout = catchAsync(async (req, res, next) => {
   const { tour, user, price } = req.query;
   if (!tour && !user && !price) return next();
   await Booking.create({ tour, user, price });
-  console.log(req.originalUrl.split('?')[0])
+  // console.log(req.originalUrl.split('?')[0])
   res.redirect(req.originalUrl.split('?')[0])
 });
 

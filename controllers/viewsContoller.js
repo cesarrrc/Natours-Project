@@ -67,9 +67,7 @@ exports.updateUserData = catchAsync(async (req, res, next) => {
       runValidators: true
     }
   );
-  console.log(
-    '564465456f4ds5a64f56sad456f4sad56f465sdf4f65dsa465sdaf456f4as5d6f456sadf'
-  );
+ 
   res.status(200).render('account', {
     title: 'Your Account',
     user: updatedUser
